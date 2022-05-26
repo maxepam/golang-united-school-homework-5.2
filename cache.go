@@ -44,15 +44,12 @@ func (c *Cache) Put(key, value string) {
 	c.values[key] = newValue(value, false, time.Now())
 }
 
-func (c *Cache) Keys() []string {
+func (c Cache) Keys() []string {
 	ret := make([]string, 0, len(c.values))
 	for k, val := range c.values {
 		if !val.isTimeout || (val.isTimeout && !isExpired(val.deadline)) {
 			ret = append(ret, k)
-		} else {
-			delete(c.values, k)
-		}
-		
+		}		
 	  }
 	  return ret
 }
