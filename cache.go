@@ -45,7 +45,7 @@ func (c *Cache) Put(key, value string) {
 }
 
 func (c *Cache) Keys() []string {
-	ret := make([]string, len(c.values))
+	ret := make([]string, 0, len(c.values))
 	for k, val := range c.values {
 		if !val.isTimeout || (val.isTimeout && !isExpired(val.deadline)) {
 			ret = append(ret, k)
